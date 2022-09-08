@@ -45,4 +45,29 @@ public class TemplateMethodTest {
         AbstractTemplate template2 = new SubClassLogic2();
         template2.execute();
     }
+
+    /**
+     * 익명의 내부클래스 활용
+     * 익명일 경우 이름이 없기때문에 자바에서 자동으로 $1, $2 ...
+     */
+    @Test
+    void templateMethodV2() {
+        AbstractTemplate template1 = new AbstractTemplate() {
+            @Override
+            protected void call() {
+                log.info("비즈니스 로직1 실행 ");
+            }
+        };
+        log.info("클래스1 이름= {}", template1.getClass());
+        template1.execute();
+
+        AbstractTemplate template2 = new AbstractTemplate() {
+            @Override
+            protected void call() {
+                log.info("비즈니스 로직2 실행 ");
+            }
+        };
+        log.info("클래스2 이름= {}", template2.getClass());
+        template2.execute();
+    }
 }
