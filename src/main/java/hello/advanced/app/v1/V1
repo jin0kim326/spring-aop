@@ -1,0 +1,18 @@
+[64b0991d] OrderController.request()
+[c4de4e30] OrderServiceV1.orderItem()
+[2a3255a9] OrderRepositoryV1.save()
+[2a3255a9] OrderRepositoryV1.save() time=0ms ex=java.lang.IllegalStateException: 예외 발생 !
+[c4de4e30] OrderServiceV1.orderItem() time=1ms ex=java.lang.IllegalStateException: 예외 발생 !
+[64b0991d] OrderController.request() time=2ms ex=java.lang.IllegalStateException: 예외 발생 !
+
+V1버전은 일일히 로그를 남기는것보다 간편하지만
+
+로그를 남기는 과정이 생각보다 복잡함 (try,catch)
+
+그리고 controller -> service -> repository를 거치면서 트랜잭션ID와 깊이(level)을 받아오지
+못하고 있음.
+
+이것을 해결하기위한 가장 쉬운 방법은 파라미터로 넘기는것
+
+V2 : 파라미터로 동기화하기
+
