@@ -1,6 +1,7 @@
 package hello.advanced.trace.strategy;
 
 import hello.advanced.trace.strategy.code.strategy.ContextV1;
+import hello.advanced.trace.strategy.code.strategy.Strategy;
 import hello.advanced.trace.strategy.code.strategy.StrategyLogic1;
 import hello.advanced.trace.strategy.code.strategy.StrategyLogic2;
 import hello.advanced.trace.template.code.AbstractTemplate;
@@ -61,5 +62,46 @@ public class ContextV1Test {
         StrategyLogic2 strategyLogic2 = new StrategyLogic2();
         ContextV1 context2 = new ContextV1(strategyLogic2);
         context2.execute();
+    }
+
+    /**
+     * 전략패턴#2 : 익명의 내부클래스
+     */
+    @Test
+    void strategyV2() {
+        Strategy strategyLogic1 = new Strategy() {
+            @Override
+            public void call() {
+                log.info("비즈니스 로직1 실행!");
+            }
+        };
+
+        ContextV1 contextV1 = new ContextV1(strategyLogic1);
+        log.info("{}",strategyLogic1.getClass());
+        contextV1.execute();
+    }
+
+    /**
+     * 전략패턴#2 : 익명의 내부클래스 (바로 파라미터로 넣어주기)
+     */
+    @Test
+    void strategyV3() {
+
+        ContextV1 contextV1 = new ContextV1(new Strategy() {
+            @Override
+            public void call() {
+                log.info("비즈니스 로직1 실행!");
+            }
+        });
+        contextV1.execute();
+    }
+
+    /**
+     * 전략패턴#2 : 익명의 내부클래스 (람다로 줄이기)
+     */
+    @Test
+    void strategyV4() {
+        ContextV1 contextV1 = new ContextV1(() -> log.info("비즈니스 로직1 실행!"));
+        contextV1.execute();
     }
 }
